@@ -58,7 +58,7 @@ pipeline{
 			steps{
 				// "docker build -t kirik/currency-exchange:$env.BUILD_TAG"
 				script {
-					docker.build("kirik/currency-exchange:$(env.BUILD_TAG)")
+					docker.build("kirik/currency-exchange:${env.BUILD_TAG}")
 				}
 				
 			}
