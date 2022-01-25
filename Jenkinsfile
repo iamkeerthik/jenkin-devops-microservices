@@ -49,6 +49,11 @@ pipeline{
                 sh "mv failsafe:Integration-test failsafe:verify"
 			}		
 		}
+		stage ('Package') {
+			steps {
+				sh "mvn package -DskipTests"
+			}
+		}
 		stage ('Build Docker Image') {
 			steps{
 				// "docker build -t kirik/currency-exchange:$env.BUILD_TAG"
