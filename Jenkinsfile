@@ -47,7 +47,29 @@ pipeline{
 		stage ('Integration Test'){
 			steps{
                 sh "mv failsafe:Integration-test failsafe:verify"
-			}		}
+			}		
+		}
+		stage ('Build Docker Image') {
+			steps{
+				// "docker build -t kirik/currency-exchange:$env.BUILD_TAG"
+				script {
+					docker.build("kirik/currency-exchange:$(env.BUILD_TAG)")
+				}
+				
+			}
+		}
+		stage ('Push Docker Image') { //configure your docker hub credentials in jenkinns first ( credentials - jenkins - global_credentials )
+			steps{
+				script{
+					docker.withRegistry ('','dockerhub') { //Credential_Id given in credentials section
+						dockerImage.push();
+						dockerImage.push('latest'); 
+
+					}
+				}
+
+			}
+		}
 	}
 	post{
 		always{
