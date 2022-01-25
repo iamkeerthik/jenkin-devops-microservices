@@ -1,5 +1,8 @@
 node {
-		echo "Build"
-		echo "Test"
-		echo "Integration"
+        stage('Build') {
+                echo "Build"
+        }
+        stage('Test') {
+                echo "Test"
+        }
 }
